@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator project</title>
+Simple Calculator :D
+</head>
+<body>
+<p id="text" style="border:1px solid"></p>
+<button id="1" type="button" onclick="addSym(1)">1</button>
+<button id="2" type="button" onclick="addSym(2)">2</button>
+<button id="3" type="button" onclick="addSym(3)">3</button>
+<button id="4" type="button" onclick="addSym(4)">4</button>
+<button id="5" type="button" onclick="addSym(5)">5</button>
+<button id="6" type="button" onclick="addSym(6)">6</button>
+<button id="7" type="button" onclick="addSym(7)">7</button>
+<button id="8" type="button" onclick="addSym(8)">8</button>
+<button id="9" type="button" onclick="addSym(9)">9</button>
+<button id="0" type="button" onclick="addSym(0)">0</button>
+<button id="-" type="button" onclick="addSym('-')">-</button>
+<button id="+" type="button" onclick="addSym('+')">+</button>
+<button id="x" type="button" onclick="addSym('*')">X</button>
+<button id="d" type="button" onclick="addSym('/')">÷</button>
+<button id="=" type="button" onclick="finish()">=</button>
+<button id="AC" type="button" onclick="erase(true)">AC</button>
+<script>
+let last_sym = ""
+const b1 = document.getElementById("1")
+const b2 = document.getElementById("2")
+const b3 = document.getElementById("3")
+const b4 = document.getElementById("4")
+const b5 = document.getElementById("5")
+const b6 = document.getElementById("6")
+const b7 = document.getElementById("7")
+const b8 = document.getElementById("8")
+const b9 = document.getElementById("9")
+const b0 = document.getElementById("0")
+const s = document.getElementById("-")
+const p = document.getElementById("+")
+const e = document.getElementById("=")
+const m = document.getElementById("x")
+const d = document.getElementById("d")
+const AC = document.getElementById("AC")
+const textbox = document.getElementById("text")
+b1.style.position = 'relative';
+b1.style.left = '100px';
+b1.style.bottom = '-200px';
+b1.style.width = '40px';
+b1.style.height = '40px';
+//
+b2.style.position = 'relative';
+b2.style.left = '100px';
+b2.style.bottom = '-200px';
+b2.style.width = '40px';
+b2.style.height = '40px';
+//
+b3.style.position = 'relative';
+b3.style.left = '100px';
+b3.style.bottom = '-200px';
+b3.style.width = '40px';
+b3.style.height = '40px';
+//
+AC.style.position = 'relative';
+AC.style.left = '-448px';
+AC.style.bottom = '-200px';
+AC.style.width = '40px';
+AC.style.height = '40px';
+//
+b4.style.position = 'relative';
+b4.style.left = '-31px';
+b4.style.bottom = '-250px';
+b4.style.width = '40px';
+b4.style.height = '40px';
+//
+b5.style.position = 'relative';
+b5.style.left = '-31px';
+b5.style.bottom = '-250px';
+b5.style.width = '40px';
+b5.style.height = '40px';
+//
+b6.style.position = 'relative';
+b6.style.left = '-31px';
+b6.style.bottom = '-250px';
+b6.style.width = '40px';
+b6.style.height = '40px';
+//
+d.style.position = 'relative';
+d.style.left = '-340px';
+d.style.bottom = '-250px';
+d.style.width = '40px';
+d.style.height = '40px';
+//
+b7.style.position = 'relative';
+b7.style.left = '-163px';
+b7.style.bottom = '-300px';
+b7.style.width = '40px';
+b7.style.height = '40px';
+//
+b8.style.position = 'relative';
+b8.style.left = '-163px';
+b8.style.bottom = '-300px';
+b8.style.width = '40px';
+b8.style.height = '40px';
+//
+b9.style.position = 'relative';
+b9.style.left = '-163px';
+b9.style.bottom = '-300px';
+b9.style.width = '40px';
+b9.style.height = '40px';
+//
+m.style.position = 'relative';
+m.style.left = '-296px';
+m.style.bottom = '-300px';
+m.style.width = '40px';
+m.style.height = '40px';
+//
+s.style.position = 'relative';
+s.style.left = '-295px';
+s.style.bottom = '-350px';
+s.style.width = '40px';
+s.style.height = '40px';
+
+b0.style.position = 'relative';
+b0.style.left = '-295px';
+b0.style.bottom = '-350px';
+b0.style.width = '40px';
+b0.style.height = '40px';
+
+p.style.position = 'relative';
+p.style.left = '-295px';
+p.style.bottom = '-350px';
+p.style.width = '40px';
+p.style.height = '40px';
+
+text.style.position = 'relative';
+text.style.left = '100px';
+text.style.bottom = '-200px';
+text.style.width = '127px';
+text.style.height = '30px';
+
+e.style.position = 'relative';
+e.style.left = '-383px';
+e.style.bottom = '-350px';
+e.style.width = '60px';
+e.style.height = '40px';
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+setInterval(() => {
+    
+    if (last_sym == "1" || last_sym == "2" || last_sym == "3" || last_sym == "4" || last_sym == "5" || last_sym == "6" || last_sym == "7" || last_sym == "8" || last_sym == "9" || last_sym == "0"){
+        e.disabled = false;
+        s.disabled = false;
+        m.disabled = false;
+        p.disabled = false;
+        d.disabled = false;
+    } else if(last_sym == ""){
+        m.disabled = true;
+        p.disabled = true;
+        e.disabled = true;
+        d.disabled = true;
+    } else if(last_sym == "-"){
+        s.disabled = true;
+        m.disabled = true;
+        p.disabled = true;
+        d.disabled = true;
+    } else{
+        m.disabled = true;
+        p.disabled = true;
+        m.disabled = true;
+        e.disabled = true;
+        d.disabled = true;
+    }
+}, 10);
+
+
+function setLast(x){
+    last_sym = x
+}
+
+function addSym(sym){
+    text.textContent += sym
+    setLast(sym)
+}
+
+function finish(){
+    text.textContent = convert(text.textContent)
+    setLast("")
+}
+
+function convert(tex){
+    console.log(tex)
+    return Math.floor(eval(tex));
+}
+
+function erase(all){
+    if (all == true) {
+        text.textContent = ""
+        setLast("")
+    }
+}
+
+</script>
+</body>
+</html>
+
+
+
+
