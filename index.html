@@ -24,6 +24,7 @@ Calculator :)
 <button id="bl" type="button" onclick="addSym('(',true, false)">(</button>
 <button id="=" type="button" onclick="finish()">=</button>
 <button id="AC" type="button" onclick="erase(true)">AC</button>
+<button id="C" type="button" onclick="erase(false)">Del</button>
 <script>
 let last_sym = ""
 const b1 = document.getElementById("1")
@@ -44,6 +45,7 @@ const d = document.getElementById("d")
 const br = document.getElementById("br")
 const bl = document.getElementById("bl")
 const AC = document.getElementById("AC")
+const C = document.getElementById("C")
 const textbox = document.getElementById("text")
 b1.style.position = 'relative';
 b1.style.left = '100px';
@@ -74,6 +76,12 @@ br.style.left = '-341px';
 br.style.bottom = '-200px';
 br.style.width = '40px';
 br.style.height = '40px';
+//
+C.style.position = 'relative';
+C.style.left = '-494px';
+C.style.bottom = '-200px';
+C.style.width = '40px';
+C.style.height = '40px';
 //
 b4.style.position = 'relative';
 b4.style.left = '-31px';
@@ -197,6 +205,10 @@ function erase(all){
         setLast("")
         countLeft = 0;
         countRight = 0;
+    } else{
+        let newtxt = textbox.textContent.substring(0,textbox.textContent.length - 1)
+        textbox.textContent = newtxt
+        setLast(textbox.textContent[textbox.textContent.length - 1])
     }
 }
 setInterval(() => {
@@ -207,31 +219,37 @@ setInterval(() => {
         m.disabled = false;
         p.disabled = false;
         d.disabled = false;
+        br.disabled = false;
     } else if(last_sym == ""){
         m.disabled = true;
         p.disabled = true;
         e.disabled = true;
         d.disabled = true;
         s.disabled = false;
+        br.disabled = true;
     } else if(last_sym == "-"){
+        br.disabled = false;
         s.disabled = true;
         m.disabled = true;
         p.disabled = true;
         d.disabled = true;
         e.disabled = true;
     } else if (last_sym == '('){
+        br.disabled = false;
         m.disabled = true;
         p.disabled = true;
         e.disabled = true;
         d.disabled = true;
         s.disabled = false;
     }else if (last_sym == ')'){
+        br.disabled = false;
         m.disabled = false;
         p.disabled = false;
         if (countRight == countLeft){e.disabled = false;}
         d.disabled = false;
         s.disabled = false;
     } else{
+        br.disabled = false;
         m.disabled = true;
         p.disabled = true;
         e.disabled = true;
