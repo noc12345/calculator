@@ -183,6 +183,8 @@ function addSym(sym, lef, rig){
 
 function finish(){
     textbox.textContent = convert(textbox.textContent)
+    countLeft = 0;
+    countRight = 0;
 }
 
 function convert(tex){
@@ -193,6 +195,8 @@ function erase(all){
     if (all == true) {
         textbox.textContent = ""
         setLast("")
+        countLeft = 0;
+        countRight = 0;
     }
 }
 setInterval(() => {
