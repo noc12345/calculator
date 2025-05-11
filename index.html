@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Calculator project</title>
-Simple Calculator :)
+Calculator :)
 </head>
 <body>
 <p id="text" style="border:1px solid"></p>
@@ -20,6 +20,8 @@ Simple Calculator :)
 <button id="+" type="button" onclick="addSym('+')">+</button>
 <button id="x" type="button" onclick="addSym('*')">X</button>
 <button id="d" type="button" onclick="addSym('/')">÷</button>
+<button id="br" type="button" onclick="addSym(')', false, true)">)</button>
+<button id="bl" type="button" onclick="addSym('(',true, false)">(</button>
 <button id="=" type="button" onclick="finish()">=</button>
 <button id="AC" type="button" onclick="erase(true)">AC</button>
 <script>
@@ -39,6 +41,8 @@ const p = document.getElementById("+")
 const e = document.getElementById("=")
 const m = document.getElementById("x")
 const d = document.getElementById("d")
+const br = document.getElementById("br")
+const bl = document.getElementById("bl")
 const AC = document.getElementById("AC")
 const textbox = document.getElementById("text")
 b1.style.position = 'relative';
@@ -60,10 +64,16 @@ b3.style.width = '40px';
 b3.style.height = '40px';
 //
 AC.style.position = 'relative';
-AC.style.left = '-448px';
+AC.style.left = '-537px';
 AC.style.bottom = '-200px';
 AC.style.width = '40px';
 AC.style.height = '40px';
+//
+br.style.position = 'relative';
+br.style.left = '-341px';
+br.style.bottom = '-200px';
+br.style.width = '40px';
+br.style.height = '40px';
 //
 b4.style.position = 'relative';
 b4.style.left = '-31px';
@@ -88,6 +98,12 @@ d.style.left = '-340px';
 d.style.bottom = '-250px';
 d.style.width = '40px';
 d.style.height = '40px';
+//
+bl.style.position = 'relative';
+bl.style.left = '-384px';
+bl.style.bottom = '-250px';
+bl.style.width = '40px';
+bl.style.height = '40px';
 //
 b7.style.position = 'relative';
 b7.style.left = '-163px';
@@ -131,14 +147,14 @@ p.style.bottom = '-350px';
 p.style.width = '40px';
 p.style.height = '40px';
 
-text.style.position = 'relative';
-text.style.left = '100px';
-text.style.bottom = '-200px';
-text.style.width = '127px';
-text.style.height = '30px';
+textbox.style.position = 'relative';
+textbox.style.left = '100px';
+textbox.style.bottom = '-200px';
+textbox.style.width = '250px';
+textbox.style.height = '30px';
 
 e.style.position = 'relative';
-e.style.left = '-383px';
+e.style.left = '-470px';
 e.style.bottom = '-350px';
 e.style.width = '60px';
 e.style.height = '40px';
@@ -147,10 +163,42 @@ e.style.height = '40px';
 ///////////////////////////////////////////////////////////////////////
 
 
+let countLeft = 0;
+let countRight = 0;
+
+
+function setLast(x){
+    last_sym = x;
+}
+
+function addSym(sym, lef, rig){
+    textbox.textContent += sym
+    setLast(sym)
+    if (lef == true){
+        countLeft += 1;
+    } else if (rig == true){
+        countRight += 1;
+    }
+}
+
+function finish(){
+    textbox.textContent = convert(textbox.textContent)
+}
+
+function convert(tex){
+    return Math.floor(eval(tex));
+}
+
+function erase(all){
+    if (all == true) {
+        textbox.textContent = ""
+        setLast("")
+    }
+}
 setInterval(() => {
     
     if (last_sym == "1" || last_sym == "2" || last_sym == "3" || last_sym == "4" || last_sym == "5" || last_sym == "6" || last_sym == "7" || last_sym == "8" || last_sym == "9" || last_sym == "0"){
-        e.disabled = false;
+        if (countRight == countLeft){e.disabled = false;}
         s.disabled = false;
         m.disabled = false;
         p.disabled = false;
@@ -165,45 +213,29 @@ setInterval(() => {
         m.disabled = true;
         p.disabled = true;
         d.disabled = true;
+    } else if (last_sym == '('){
+        m.disabled = true;
+        p.disabled = true;
+        e.disabled = true;
+        d.disabled = true;
+        s.disabled = false;
+    }else if (last_sym == ')'){
+        m.disabled = false;
+        p.disabled = false;
+        if (countRight == countLeft){e.disabled = false;}
+        d.disabled = false;
+        s.disabled = false;
     } else{
         m.disabled = true;
         p.disabled = true;
-        m.disabled = true;
         e.disabled = true;
         d.disabled = true;
     }
 }, 10);
 
-
-function setLast(x){
-    last_sym = x
-}
-
-function addSym(sym){
-    text.textContent += sym
-    setLast(sym)
-}
-
-function finish(){
-    text.textContent = convert(text.textContent)
-}
-
-function convert(tex){
-    console.log(tex)
-    return Math.floor(eval(tex));
-}
-
-function erase(all){
-    if (all == true) {
-        text.textContent = ""
-        setLast("")
-    }
-}
-
 </script>
 </body>
 </html>
-
 
 
 
