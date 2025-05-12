@@ -206,10 +206,11 @@ function erase(all){
         countLeft = 0;
         countRight = 0;
     } else{
+        let lst = textbox.textContent[textbox.textContent.length - 1];
         let newtxt = textbox.textContent.substring(0,textbox.textContent.length - 1)
         textbox.textContent = newtxt
-        let lst = textbox.textContent[textbox.textContent.length - 1];
-        setLast(lst)
+        
+        setLast(textbox.textContent[textbox.textContent.length - 1])
         if (lst == '('){
             countLeft -= 1;
         } else if (lst == ')'){
